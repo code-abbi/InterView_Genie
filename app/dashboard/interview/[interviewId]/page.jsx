@@ -2,7 +2,8 @@
 import { db } from '@/utils/db'
 import { MockInterview } from '@/utils/schema'
 import { eq } from 'drizzle-orm'
-import { WebcamIcon } from 'lucide-react'
+import { Lightbulb, WebcamIcon ,Mic,Play} from 'lucide-react'
+import { Inter } from 'next/font/google'
 import React, { useEffect, useState, use } from 'react'
 import Webcam from 'react-webcam'
 
@@ -20,58 +21,90 @@ function Interview(props) {
     };
     fetchData();
   }, [params.interviewId]);
-
-  return (
-    <div className='my-10 flex justify-center flex-col items-center'>
-     <h2 className='font-bold text-2xl mb-4'>
-      let's start the interview 
-     </h2>
-     <div className='grid grid-cols-1 md:grid-cols-2 gap- mb-4'>
-
-    {/* job information */}
-<div className='flex flex-col my-5 gap-5 '>
-  <div className='flex flex-col gap-5 p-5 rounded-2xl border '>
-  {interviewData ? (
-    <>
-      <h2 className='text-lg mb-2 gap-5'>
-        <strong> Job Role\Job position:</strong> {interviewData.jobPosition}
+ return (
+    <div className='my-10 flex flex-col items-center justify-center'>
+      <h2 className='font-bold text-3xl text-gray-700 mb-6'>
+        Let's Start the Interview
       </h2>
-      <h2 className='text-lg mb-2'>
-        <strong> Job Description:</strong> {interviewData.jobDesc}
-      </h2>
-      <h2 className='text-lg mb-2'>
-        <strong> Years of Experience:</strong> {interviewData.jobExperience}
-      </h2>
-    </>
-  ) : (
-    <div>Loading interview details...</div>
-  )}
-  </div>
-</div>
 
-{/* webcam information */}
- <div>
-       { webcamEnabled? <Webcam 
-       onUserMedia={() => setWebcamEnabled(true)}
-        onUserMediaError={() => setWebcamEnabled(false)}
-    
-         style={{ width: 300, height: 300 }}
-       /> 
-        : 
-        <>
-        <WebcamIcon className='w-full h-72 p-20 bg-secondary rounded-lg border-2 mb-4' />
-        <button 
-          className='bg-primary text-white px-4 py-2 rounded-lg'
-          onClick={() => setWebcamEnabled(!webcamEnabled)} >
-            Enable Webcam and Microphone
-          </button>
-        </>
-       }
-     </div>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-5xl'>
 
-     </div>
+        <div className='flex flex-col gap-6'>
+          <div className='bg-white p-6 rounded-xl shadow-md border border-gray-200 flex flex-col gap-4'>
+            {interviewData ? (
+              <>
+                <div>
+                  <h3 className='text-sm font-medium text-gray-800'>Job Position</h3>
+                  <p className='text-lg font-semibold text-gray-500'>{interviewData.jobPosition}</p>
+                </div>
+                <div>
+                  <h3 className='text-sm font-medium text-gray-800'>Job Description / Skills</h3>
+                  <p className='text-lg font-semibold text-gray-500'>{interviewData.jobDesc}</p>
+                </div>
+                <div>
+                  <h3 className='text-sm font-medium text-gray-800'>Years of Experience</h3>
+                  <p className='text-lg font-semibold text-gray-500'>{interviewData.jobExperience}</p>
+                </div>
+              </>
+            ) : (
+              <div className='flex flex-col gap-4'>
+                  <div className='h-6 bg-slate-200 rounded animate-pulse'></div>
+                  <div className='h-6 bg-slate-200 rounded animate-pulse'></div>
+                  <div className='h-6 bg-slate-200 rounded animate-pulse'></div>
+              </div>
+            )}
+          </div>
+
+          <div className='p-5 border-l-4 border-yellow-400 bg-yellow-50 rounded-lg'>
+            <h2 className='flex gap-2 items-center text-yellow-700 font-semibold'>
+              <Lightbulb />
+              Information
+            </h2>
+            <p className='mt-2 text-yellow-600 text-sm'>
+              {process.env.NEXT_PUBLIC_INFORMATION}
+            </p>
+          </div>
+        </div>
+
+        <div className='bg-white p-6 rounded-xl shadow-md border border-gray-200 flex flex-col items-center justify-center gap-4'>
+          {webcamEnabled ? (
+            <div className='w-full rounded-lg overflow-hidden border-2 border-indigo-400'>
+               <Webcam
+                onUserMedia={() => setWebcamEnabled(true)}
+                onUserMediaError={() => setWebcamEnabled(false)}
+                mirrored={true}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  aspectRatio: '4/3',
+                }}
+              />
+            </div>
+          ) : (
+            <>
+              <div className='w-full aspect-video bg-slate-100 rounded-lg border-2 border-dashed flex items-center justify-center'>
+                <WebcamIcon className='h-24 w-24 text-grey-800' />
+              </div>
+              <button
+                className='w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2'
+                onClick={() => setWebcamEnabled(true)}
+              >
+                <Mic className='h-5 w-5' /> Enable Webcam and Microphone
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+      
+      <div className='w-full flex justify-end mt-8 max-w-5xl'>
+        <button className='bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors flex items-center gap-2 disabled:bg-gray-400'
+          disabled={!webcamEnabled}
+        >
+            <Play className='h-5 w-5' /> Start Interview
+        </button>
+      </div>
     </div>
-  )
+  );
 }
-
-export default Interview
+export default Interview;  
+Interview
