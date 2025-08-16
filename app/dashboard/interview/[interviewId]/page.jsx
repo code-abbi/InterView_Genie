@@ -2,25 +2,26 @@
 import { db } from '@/utils/db'
 import { MockInterview } from '@/utils/schema'
 import { eq } from 'drizzle-orm'
+import Link from 'next/link';
 import { Lightbulb, WebcamIcon ,Mic,Play} from 'lucide-react'
 import { Inter } from 'next/font/google'
-import React, { useEffect, useState, use } from 'react'
+import React, { useEffect, useState ,use} from 'react'
 import Webcam from 'react-webcam'
 
 function Interview(props) {
-  const params = use(props.params); // Unwrap the promise
+  const unwrappedParams = use(props.params);
   const [interviewData, setInterviewData] = useState(null);
   const [webcamEnabled, setWebcamEnabled] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await db.select().from(MockInterview)
-        .where(eq(MockInterview.mockId, params.interviewId));
+      .where(eq(MockInterview.mockId, unwrappedParams.interviewId))
       setInterviewData(result[0]);
      
     };
     fetchData();
-  }, [params.interviewId]);
+  }, [unwrappedParams.interviewId]);
  return (
     <div className='my-10 flex flex-col items-center justify-center'>
       <h2 className='font-bold text-3xl text-gray-700 mb-6'>
@@ -97,11 +98,12 @@ function Interview(props) {
       </div>
       
       <div className='w-full flex justify-end mt-8 max-w-5xl'>
+        <Link href={`/dashboard/interview/${unwrappedParams.interviewId}/start`}>
         <button className='bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors flex items-center gap-2 disabled:bg-gray-400'
-          disabled={!webcamEnabled}
-        >
-            <Play className='h-5 w-5' /> Start Interview
+          disabled={!webcamEnabled}> Start Interview
         </button>
+        </Link>
+        
       </div>
     </div>
   );
