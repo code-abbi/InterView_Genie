@@ -6,6 +6,8 @@ import React, { use, useEffect, useState } from 'react';
 import QuestionSection from './_components/QuestionSection';
 import { Lightbulb, WebcamIcon, Mic } from 'lucide-react';
 import dynamic from 'next/dynamic'; // STEP 1: Import dynamic
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 // STEP 2: Dynamically import the component with server-side rendering disabled
 const RecordAnswerSection = dynamic(
@@ -67,6 +69,17 @@ function StartInterview({params}) {
               activeQuestionIndex={activeQuestionIndex}
               interviewData={interviewData}
             />
+        </div>
+        <div className='flex justify-end gap-6 mt-5'>
+        {activeQuestionIndex!=mockInterviewQuestion?.length-1&&
+        <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}> Next question</Button>}
+        {activeQuestionIndex==mockInterviewQuestion?.length-1&& 
+        <Link href={'/dashboard/interview/'+interviewData?.mockId +'/feedback'}>
+          <Button>Finish Interview</Button>
+        </Link>
+        }
+
+     
         </div>
     </div>
   );
