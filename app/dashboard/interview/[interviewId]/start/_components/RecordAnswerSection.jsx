@@ -124,7 +124,7 @@ function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQue
       <button disabled={loading}
         variant="outline"
         className='w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 mt-4'
-        onClick={StartStopRecording} // Use the new handler
+        onClick={StartStopRecording} 
       >
         {isRecording ? (
           <> 
@@ -135,16 +135,10 @@ function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQue
           'Record Answer'
         )}
       </button>
-      {error && <p className='text-red-600 text-sm mt-2'>An error occurred: {error}</p>}
-        {/* Display the user's answer */}
-        {/* <button onClick={() =>console.log(userAnswer) }>Show Answer</button> */}
-      {/* Display transcribed results (for debugging/testing)*/}
-      {/* <div className='mt-4 text-gray-700 w-full text-left'>
-        {results.map((result) => (
-          <span key={result.timestamp}>{result.transcript}</span>
-        ))}
-      </div>
-      {interimResult && <div className='text-gray-500 text-sm mt-1'>Interim: {interimResult}</div>} */}
+      {error && <p className='text-red-600 text-sm mt-2'>error : 
+        Speech recongination api is not available in your current browser. For the best experience, please use the latest version of Google Chrome.
+       </p>}
+      
 
     </div>
    )
