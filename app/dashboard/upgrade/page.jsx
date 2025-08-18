@@ -36,7 +36,7 @@ function Upgrade() {
   };
 
   return (
-    <div className='min-h-screen bg-slate-50 dark:bg-slate-900 p-4 sm:p-10'>
+    <div className='min-h-screen dark:bg-slate-900 p-4 sm:p-10'>
       <div className='max-w-5xl mx-auto'>
         <div className='text-center mb-12'>
           <h2 className='text-4xl sm:text-5xl font-extrabold text-orange-500 dark:text-white'>
