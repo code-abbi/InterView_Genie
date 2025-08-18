@@ -136,15 +136,6 @@ function Feedback({params}) {
                         <p className="text-red-700 mt-1 pl-7 text-sm">{item.userAns}</p>
                       </div>
 
-                      {/* Correct Answer
-                      <div className="p-3 bg-green-50 border-l-4 border-green-400 rounded-r-lg">
-                        <div className="flex items-center gap-2 text-green-800 font-semibold">
-                          <CheckCircle className="h-5 w-5" />
-                          <h3>Correct Answer</h3>
-                        </div>
-                        <p className="text-green-700 mt-1 pl-7 text-sm">{item.correctAns}</p>
-                      </div> */}
-
                       {/* Feedback */}
                       <div className="p-3 bg-green-50 border-l-4 border-green-400 rounded-r-lg">
                         <div className="flex items-center gap-2 text-green-800 font-semibold">

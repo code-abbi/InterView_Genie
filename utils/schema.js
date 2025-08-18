@@ -1,4 +1,5 @@
 
+import { integer } from "drizzle-orm/gel-core";
 import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
 
 export const MockInterview = pgTable("mock_interview", {
@@ -16,10 +17,10 @@ export const UserAnswer = pgTable("user_answer", {
   id: serial("id").primaryKey(),
   mockIdref:varchar("mockId"),
   question:varchar("question" ).notNull(),
-  correctAns:text('correctAns').notNull(),
+  correctAns:text('correctAns'),
   userAns:text("userAns").notNull(),
   feedback:text("feedback").notNull(),
-  rating: varchar("rating").notNull(),
+  rating: integer("rating").notNull(),
   createdAt: varchar("createdAt"),
   userEmail: varchar("userEmail")
 });

@@ -1,102 +1,146 @@
-import Image from "next/image";
+import { Button } from '@/components/ui/button';
+import { ArrowRight, BrainCircuit, Mic, Award, Star } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+
+// Feature Card Component
+const FeatureCard = ({ icon: Icon, title, description }) => (
+  <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 mb-4">
+      <Icon className="h-6 w-6 text-orange-500" />
+    </div>
+    <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
+    <p className="text-gray-600">{description}</p>
+  </div>
+);
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+      {/* Header */}
+      <header className="sticky top-0 z-50 p-4 flex justify-between items-center border-b bg-white/80 backdrop-blur-sm dark:bg-slate-900/80 dark:border-slate-800">
+        <Link href="/" className='flex items-center gap-2 cursor-pointer'>
+          <Image src={'/logo.svg'} width={40} height={40} alt='logo' />
+          <h1 className="text-2xl font-bold hidden sm:block">
+            InterView<span className="text-orange-500">Genie</span>
+          </h1>
+        </Link>
+        <div className="flex items-center gap-4">
+          <Link href="/dashboard">
+            <Button variant="ghost">Login</Button>
+          </Link>
+          <Link href="/dashboard">
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full">Get Started</Button>
+          </Link>
         </div>
+      </header>
+
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="text-center py-20 px-6 bg-white dark:bg-slate-900">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Ace Your Next Tech Interview
+            </h2>
+            <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-slate-600 dark:text-slate-300">
+              Practice with our AI-powered mock interviews, get instant, personalized feedback, and land your dream job. Your personal interview coach is just one click away.
+            </p>
+            <div className="mt-10 flex justify-center gap-4">
+              <Link href="/dashboard">
+                <Button 
+                  size="lg" 
+                  className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg py-3 px-8 rounded-full transition-transform transform hover:scale-105"
+                >
+                  Start Practicing Now <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="py-20 px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl md:text-4xl font-bold text-orange-500">Why InterViewGenie?</h3>
+              <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">Everything you need to prepare and succeed.</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <FeatureCard 
+                icon={BrainCircuit}
+                title="AI-Generated Questions"
+                description="Get interview questions tailored to the specific job role, description, and your experience level."
+              />
+              <FeatureCard 
+                icon={Mic}
+                title="Realistic Practice"
+                description="Use your webcam and microphone to simulate a real interview experience and practice your delivery."
+              />
+              <FeatureCard 
+                icon={Star}
+                title="Instant AI Feedback"
+                description="Receive immediate, detailed feedback on your answers, including a performance rating and tips for improvement."
+              />
+              <FeatureCard 
+                icon={Award}
+                title="Track Your Progress"
+                description="Review all your past interviews and feedback to see how you've improved over time on your personal dashboard."
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="py-20 px-6 bg-white dark:bg-slate-900">
+          <div className="max-w-4xl mx-auto text-center">
+            <h3 className="text-3xl md:text-4xl font-bold text-orange-500 mb-12">How It Works</h3>
+            <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+              <div className="flex flex-col items-center">
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-orange-100 text-orange-500 font-bold text-2xl mb-4">1</div>
+                <h4 className="text-xl font-semibold mb-2">Create Interview</h4>
+                <p className="text-slate-600 dark:text-slate-300">Input your job details and let our AI generate relevant questions.</p>
+              </div>
+              <div className="hidden md:block text-2xl text-slate-300 dark:text-slate-600">→</div>
+              <div className="flex flex-col items-center">
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-orange-100 text-orange-500 font-bold text-2xl mb-4">2</div>
+                <h4 className="text-xl font-semibold mb-2">Record Answers</h4>
+                <p className="text-slate-600 dark:text-slate-300">Start the session, enable your camera, and record your responses.</p>
+              </div>
+              <div className="hidden md:block text-2xl text-slate-300 dark:text-slate-600">→</div>
+              <div className="flex flex-col items-center">
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-orange-100 text-orange-500 font-bold text-2xl mb-4">3</div>
+                <h4 className="text-xl font-semibold mb-2">Get Feedback</h4>
+                <p className="text-slate-600 dark:text-slate-300">Receive an instant, detailed report on your performance to improve.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Final CTA */}
+        <section className="text-center py-20 px-6">
+          <div className="max-w-2xl mx-auto">
+            <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">Ready to Land Your Dream Job?</h3>
+            <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
+              Stop guessing what interviewers will ask. Start practicing with the tool designed to get you hired.
+            </p>
+            <div className="mt-8">
+              <Link href="/dashboard">
+                <Button 
+                  size="lg" 
+                  className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg py-3 px-8 rounded-full transition-transform transform hover:scale-105"
+                >
+                  Start
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="p-6 text-center text-slate-500 border-t bg-white dark:bg-slate-900 dark:border-slate-800">
+        <p>&copy; {new Date().getFullYear()} Avi.t. All rights reserved.</p>
       </footer>
     </div>
   );
