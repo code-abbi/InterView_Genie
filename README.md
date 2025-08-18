@@ -56,3 +56,16 @@ Record & Get Feedback: When you're ready, press "Record Answer." The app will ca
 
 Review and Improve: After the interview, go to the "Feedback" section to see a comprehensive report of your performance. Here, you can review each question, your answer, and the AI's feedback to identify areas for improvement.
 
+Learn More
+To learn more about Next.js, take a look at the following resources:
+
+Next.js Documentation - learn about Next.js features and API.
+
+Learn Next.js - an interactive Next.js tutorial.
+
+You can check out the Next.js GitHub repository - your feedback and contributions are welcome!
+
+Deploy on Vercel
+The easiest way to deploy your Next.js app is to use the Vercel Platform from the creators of Next.js.
+
+Check out our Next.js deployment documentation for more details.

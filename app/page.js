@@ -1,8 +1,10 @@
+"use client";
 import { Button } from '@/components/ui/button';
 import { ArrowRight, BrainCircuit, Mic, Award, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { useUser, UserButton } from '@clerk/nextjs';
 
 // Feature Card Component
 const FeatureCard = ({ icon: Icon, title, description }) => (
@@ -16,23 +18,36 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
 );
 
 export default function Home() {
+  const { user, isLoaded, isSignedIn } = useUser();
+
+  // While Clerk is loading, we can show a blank screen or a spinner
+  if (!isLoaded) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
       {/* Header */}
       <header className="sticky top-0 z-50 p-4 flex justify-between items-center border-b bg-white/80 backdrop-blur-sm dark:bg-slate-900/80 dark:border-slate-800">
-        <Link href="/" className='flex items-center gap-2 cursor-pointer'>
+        <Link href={isSignedIn ? "/dashboard" : "/"} className='flex items-center gap-2 cursor-pointer'>
           <Image src={'/logo.svg'} width={40} height={40} alt='logo' />
           <h1 className="text-2xl font-bold hidden sm:block">
             InterView<span className="text-orange-500">Genie</span>
           </h1>
         </Link>
         <div className="flex items-center gap-4">
-          <Link href="/dashboard">
-            <Button variant="ghost">Login</Button>
-          </Link>
-          <Link href="/dashboard">
-            <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full">Get Started</Button>
-          </Link>
+          {isSignedIn ? (
+            <UserButton afterSignOutUrl='/' />
+          ) : (
+            <>
+              <Link href="/dashboard">
+                <Button variant="ghost">Login</Button>
+              </Link>
+              <Link href="/dashboard">
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full">Get Started</Button>
+              </Link>
+            </>
+          )}
         </div>
       </header>
 

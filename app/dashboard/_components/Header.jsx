@@ -62,7 +62,7 @@ function Header() {
      <header className='sticky top-0 z-50 bg-white shadow-md border-b border-gray-200'> 
        <div className="container mx-auto flex items-center justify-between p-4">
         {/* Logo and Branding */}
-        <Link href="/dashboard" className='flex items-center gap-2'>
+        <Link href="/" className='flex items-center gap-2'>
           <Image src={'/logo.svg'} width={40} height={40} alt='logo' />
           <h1 className="text-2xl font-bold text-gray-800 hidden sm:block">
             InterView<span className="text-orange-500">Genie</span>
