@@ -1,13 +1,14 @@
 "use client";
 import { db } from '@/utils/db';
-import { MockInterview } from '@/utils/schema';
-import { eq } from 'drizzle-orm';
+import { MockInterview , UserAnswer } from '@/utils/schema';
+import { eq,and } from 'drizzle-orm';
 import React, { use, useEffect, useState } from 'react';
 import QuestionSection from './_components/QuestionSection';
 import { Lightbulb, WebcamIcon, Mic } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useUser } from '@clerk/nextjs';
 
 const RecordAnswerSection = dynamic(
     () => import('./_components/RecordAnswerSection'), 
@@ -16,27 +17,38 @@ const RecordAnswerSection = dynamic(
 
 function StartInterview({params}) {
    const unwrappedParams = use(params);
+   const { user } = useUser();
    const [interviewData,setInterviewData] = useState(null);
    const [mockInterviewQuestion, setMockInterviewQuestion] = useState([]);
    const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
    const [webcamEnabled, setWebcamEnabled] = useState(false);
+useEffect(() => {
+  const fetchDataAndClearPrevious = async () => {
+     if (unwrappedParams.interviewId && user) {
+         // First, delete any previous answers for this interview session and user
+         await db.delete(UserAnswer).where(
+             and(
+                 eq(UserAnswer.mockIdref, unwrappedParams.interviewId),
+                 eq(UserAnswer.userEmail, user.primaryEmailAddress.emailAddress)
+             )
+         );
 
-   useEffect(() => {
-     const fetchData = async () => {
+         // Then, fetch the interview questions
          const result = await db.select().from(MockInterview)
-          .where(eq(MockInterview.mockId, unwrappedParams.interviewId));
-         
-          if (result && result.length > 0 && result[0].jsonMockResp) {
-              const parsedData = JSON.parse(result[0].jsonMockResp);
-              setMockInterviewQuestion(Array.isArray(parsedData) ? parsedData : []);
-              setInterviewData(result[0]);
-          }
-       };
-       fetchData();
-   }, [unwrappedParams.interviewId]);
+             .where(eq(MockInterview.mockId, unwrappedParams.interviewId));
+
+         if (result && result.length > 0 && result[0].jsonMockResp) {
+             const parsedData = JSON.parse(result[0].jsonMockResp);
+             setMockInterviewQuestion(Array.isArray(parsedData) ? parsedData : []);
+             setInterviewData(result[0]);
+         }
+     }
+  };
+  fetchDataAndClearPrevious();
+}, [unwrappedParams.interviewId, user]);
 
   return (
-    <div className='my-10'>
+    <div >
       <div className='text-center mb-10'>
             <h2 className='text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-400 bg-[length:200%_auto] animate-background-pan'>
                 Your Stage is Set. Good Luck!
@@ -62,18 +74,37 @@ function StartInterview({params}) {
               interviewData={interviewData}
             />
         </div>
-        <div className='flex justify-end gap-6 mt-5'>
-          {activeQuestionIndex < mockInterviewQuestion.length - 1 && (
-            <Button onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1)}>
-              Next question
+
+    <div className='flex items-center w-full mt-10'>
+    {/* Left Spacer - Pushes the center button into the middle */}
+    <div className='flex-1'></div>
+
+    {/* Centered "End Interview" Button */}
+    <div className='flex-1 flex justify-center'>
+        <Link href={'/dashboard/interview/' + interviewData?.mockId + '/feedback'}>
+            <Button
+                variant="destructive" // This makes the button red
+            >
+                End Interview
             </Button>
-          )}
-          {activeQuestionIndex === mockInterviewQuestion.length - 1 && (
+        </Link>
+    </div>
+
+    {/* Right-aligned "Next" and "Finish" Buttons */}
+    <div className='flex-1 flex justify-end gap-6'>
+        {activeQuestionIndex < mockInterviewQuestion.length - 1 && (
+            <Button onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1)}>
+                Next question
+            </Button>
+        )}
+
+        {activeQuestionIndex === mockInterviewQuestion.length - 1 && (
             <Link href={'/dashboard/interview/' + interviewData?.mockId + '/feedback'}>
-              <Button>Finish Interview</Button>
+                <Button>Finish Interview</Button>
             </Link>
-          )}
-        </div>
+        )}
+    </div>
+    </div>
     </div>
   );
 }

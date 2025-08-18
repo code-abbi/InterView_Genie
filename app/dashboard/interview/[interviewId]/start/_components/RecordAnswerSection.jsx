@@ -14,6 +14,8 @@ function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQue
     const[userAnswer, setUserAnswer] = useState('');
     const{user}=useUser();
     const[loading, setLoading] = useState(false);
+    const [isBrowserSupported, setIsBrowserSupported] = useState(true);
+
     const {
     error,
     interimResult,
@@ -26,6 +28,12 @@ function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQue
     continuous: true,
     useLegacyResults: false
     });
+      useEffect(() => {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            setIsBrowserSupported(false);
+        }
+    }, []);
    useEffect(() => {
         if (results.length > 0) {
             const latestTranscript = results.map(r => r.transcript).join(' ');
@@ -34,21 +42,24 @@ function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQue
     }, [results]);
 
     useEffect(() => {
-      if(!isRecording && userAnswer?.length > 10 &&!loading) {
-        UpdateUserAnswer();
-      }
-    },[isRecording,userAnswer]);
+    if (!isRecording) {
+        setWebcamEnabled(false);
 
-    const StartStopRecording=async()=>{
-       setWebcamEnabled(!webcamEnabled); 
-    if(isRecording)
-      
-      stopSpeechToText();
-      
-    else{
-      startSpeechToText();
+        // Then, check if there's a valid answer to save.
+        if (userAnswer?.length > 10 && !loading) {
+            UpdateUserAnswer();
+        }
     }
-   }
+        }, [isRecording]);
+
+    const StartStopRecording = async () => {
+    if (isRecording) {
+        stopSpeechToText();
+    } else {
+        setWebcamEnabled(true); // Only enable when starting a new recording
+        startSpeechToText();
+    }
+}
   
    const UpdateUserAnswer=async()=>{ 
     setLoading(true);
@@ -124,6 +135,7 @@ function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQue
           'Record Answer'
         )}
       </button>
+      {error && <p className='text-red-600 text-sm mt-2'>An error occurred: {error}</p>}
         {/* Display the user's answer */}
         {/* <button onClick={() =>console.log(userAnswer) }>Show Answer</button> */}
       {/* Display transcribed results (for debugging/testing)*/}

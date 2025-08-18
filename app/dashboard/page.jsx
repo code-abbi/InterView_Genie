@@ -105,10 +105,7 @@ function Dashboard() {
           <p className="text-gray-500 max-w-2xl mx-auto mb-6">
             Your performance statistics will appear here once you've completed your first mock interview. Create a new session to begin.
           </p>
-          <Button onClick={() => setOpenDialog(true)} className="bg-orange-500 hover:bg-orange-600 text-white shadow-sm hover:shadow-md transition-all rounded-full px-8 py-3 text-base">
-            <Plus className="h-5 w-5 mr-2" />
-            Create New Interview
-          </Button>
+          
         </div>
       )}
 
@@ -118,7 +115,7 @@ function Dashboard() {
       {/* Recent Interviews List */}
       <div className="mt-12">
           <div className="flex justify-between items-center mb-4">
-          <h3 className="text-2xl font-bold text-gray-800">Your Past Interviews</h3>
+          <h3 className="text-2xl font-bold text-gray-800">Past Interview</h3>
           <Button
             onClick={() => setOpenDialog(true)}
             className="bg-orange-500 hover:bg-orange-600 text-white shadow-sm hover:shadow-md transition-all rounded-full px-6 py-2 text-base flex items-center gap-2"

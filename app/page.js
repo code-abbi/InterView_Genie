@@ -56,7 +56,7 @@ export default function Home() {
         <section className="text-center py-20 px-6 bg-white dark:bg-slate-900">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Ace Your Next Tech Interview
+              Ace Your Next Interview
             </h2>
             <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-slate-600 dark:text-slate-300">
               Practice with our AI-powered mock interviews, get instant, personalized feedback, and land your dream job. Your personal interview coach is just one click away.
@@ -67,7 +67,7 @@ export default function Home() {
                   size="lg" 
                   className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg py-3 px-8 rounded-full transition-transform transform hover:scale-105"
                 >
-                  Start Practicing Now <ArrowRight className="ml-2 h-5 w-5" />
+                  Start Practicing Now 
                 </Button>
               </Link>
             </div>

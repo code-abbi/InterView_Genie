@@ -95,8 +95,9 @@ function QuestionSection({ mockInterviewQuestion, activeQuestionIndex }) {
           <strong className='font-semibold'>Note:</strong>
         </h2>
         <p className='text-sm text-orange-700 my-2'>
-          Click on Record Answer when you want to answer the question. At the end of the interview we will give you the feedback.
-        </p>
+            Please note that once an answer is recorded, it cannot be re-recorded for that question.
+            Click on Record Answer when you’re ready to respond. If there’s no activity for a few seconds,
+             the camera and microphone will automatically turn off, and you may restart when ready.         </p>
       </div>
     </div>
   );
