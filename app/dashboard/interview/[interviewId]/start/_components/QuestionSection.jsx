@@ -95,9 +95,11 @@ function QuestionSection({ mockInterviewQuestion, activeQuestionIndex }) {
           <strong className='font-semibold'>Note:</strong>
         </h2>
         <p className='text-sm text-orange-700 my-2'>
-            Please note that once an answer is recorded, it cannot be re-recorded for that question.
-            Click on Record Answer when you’re ready to respond. If there’s no activity for a few seconds,
-             the camera and microphone will automatically turn off, and you may restart when ready.         </p>
+            After recording your answer, wait briefly to ensure it saves to the database. Once saved, you'll proceed automatically.
+            <br />
+            To skip a question, click "Next Question."
+            <br />
+            Click "Record Answer" to respond. Inactivity will turn off the camera/microphone after few seconds restart when ready.         </p>
       </div>
     </div>
   );

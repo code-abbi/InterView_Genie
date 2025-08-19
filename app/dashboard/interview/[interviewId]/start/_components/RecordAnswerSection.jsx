@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import { db } from '@/utils/db';
 import { UserAnswer } from '@/utils/schema';
 
-function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQuestion, activeQuestionIndex,interviewData}) {
+function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQuestion, activeQuestionIndex,interviewData,onAnswerSubmitted}) {
     const[userAnswer, setUserAnswer] = useState('');
     const{user}=useUser();
     const[loading, setLoading] = useState(false);
@@ -84,7 +84,7 @@ function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQue
          const resp=await db.insert(UserAnswer).values({
           mockIdref: interviewData?.mockId,
           question: mockInterviewQuestion[activeQuestionIndex]?.question,
-          correctAns:mockInterviewQuestion[activeQuestionIndex]?.answer,
+          correctAns:mockInterviewQuestion[activeQuestionIndex]?.answer||null,
           userAns:userAnswer, 
           feedback:JsonFeedbackResp?.feedback,
           rating:JsonFeedbackResp?.rating,
@@ -97,6 +97,7 @@ function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQue
           setUserAnswer(''); // Clear the answer after saving
           setWebcamEnabled(false); 
           setResults([]);
+          onAnswerSubmitted(); // Signal to the parent component to move to the next question
                }
                setResults([]);
     setLoading(false);

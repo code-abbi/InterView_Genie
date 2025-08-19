@@ -8,6 +8,7 @@ import { Lightbulb, WebcamIcon, Mic } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 
 const RecordAnswerSection = dynamic(
@@ -22,6 +23,7 @@ function StartInterview({params}) {
    const [mockInterviewQuestion, setMockInterviewQuestion] = useState([]);
    const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
    const [webcamEnabled, setWebcamEnabled] = useState(false);
+   const router = useRouter();
 useEffect(() => {
   const fetchDataAndClearPrevious = async () => {
      if (unwrappedParams.interviewId && user) {
@@ -46,6 +48,16 @@ useEffect(() => {
   };
   fetchDataAndClearPrevious();
 }, [unwrappedParams.interviewId, user]);
+
+const handleAnswerSubmission = () => {
+    if (activeQuestionIndex < mockInterviewQuestion.length - 1) {
+        // If it's not the last question, go to the next one
+        setActiveQuestionIndex(activeQuestionIndex + 1);
+    } else {
+        // If it is the last question, navigate to the feedback page
+        router.push(`/dashboard/interview/${interviewData?.mockId}/feedback`);
+    }
+};
 
   return (
     <div >
@@ -72,6 +84,7 @@ useEffect(() => {
                mockInterviewQuestion={mockInterviewQuestion} 
               activeQuestionIndex={activeQuestionIndex}
               interviewData={interviewData}
+              onAnswerSubmitted={handleAnswerSubmission}
             />
         </div>
 

@@ -41,11 +41,9 @@ export default function Home() {
           ) : (
             <>
               <Link href="/dashboard">
-                <Button variant="ghost">Login</Button>
+                <Button className="bg-orange-500 hover:bg-green-600 text-white rounded-full">Login</Button>
               </Link>
-              <Link href="/dashboard">
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full">Get Started</Button>
-              </Link>
+              
             </>
           )}
         </div>
@@ -65,7 +63,7 @@ export default function Home() {
               <Link href="/dashboard">
                 <Button 
                   size="lg" 
-                  className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg py-3 px-8 rounded-full transition-transform transform hover:scale-105"
+                  className="bg-orange-500 hover:bg-green-600 text-white font-bold text-lg py-3 px-8 rounded-full transition-transform transform hover:scale-105"
                 >
                   Start Practicing Now 
                 </Button>
@@ -143,7 +141,7 @@ export default function Home() {
               <Link href="/dashboard">
                 <Button 
                   size="lg" 
-                  className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg py-3 px-8 rounded-full transition-transform transform hover:scale-105"
+                  className="bg-orange-500 hover:bg-green-600 text-white font-bold text-lg py-3 px-8 rounded-full transition-transform transform hover:scale-105"
                 >
                   Start
                 </Button>
