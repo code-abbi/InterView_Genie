@@ -1,31 +1,63 @@
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { Briefcase, Calendar, Clock, Play, FileText } from 'lucide-react' // Import icons
 
-function InterviewItemCard({interview}) {
+function InterviewItemCard({ interview }) {
+  const router = useRouter();
 
-   const router=useRouter();
-
-   const onStart=()=>{
-      router.push('/dashboard/interview/'+interview?.mockId)
-   }
-   const onFeedbackPress=()=>{
-    router.push('/dashboard/interview/'+interview.mockId+'/feedback')
-   }
+  const onStart = () => {
+    router.push('/dashboard/interview/' + interview?.mockId)
+  }
+  const onFeedbackPress = () => {
+    router.push('/dashboard/interview/' + interview.mockId + '/feedback')
+  }
 
   return (
-    <div className='border shadow-sm rounded-lg p-3'>
-        <h2 className='font-bold text-primary'>{interview?.jobPosition}</h2>
-        
-        <h2 className='text-sm text-gray-600'>Years of Experience: {interview?.jobExperience} </h2>
-        <h2 className='text-xs text-gray-500'>Created At:{interview?.createdAt}</h2>
-        <div className='flex justify-between mt-2 gap-5'>
-           <Button size='sm' variant='outline' className=' bg-orange-400'
-           onClick={onFeedbackPress}>Feedback</Button>
-           <Button size='sm'variant='outline' className='bg-green-500 '
-           onClick={onStart }>Start</Button>
+    // Main card container with transition effects
+    <div className='group flex flex-col justify-between p-4 bg-white rounded-xl shadow-sm border border-gray-200 transition-all duration-300 hover:border-orange-400 hover:shadow-lg'>
+      <div>
+        {/* Card Header with Job Position */}
+        <div className='flex items-center gap-3 mb-3'>
+          <div className='p-2 bg-orange-50 rounded-md'>
+            <Briefcase className='h-5 w-5 text-orange-500' />
+          </div>
+          <h2 className='font-bold text-lg text-gray-800 truncate'>{interview?.jobPosition}</h2>
         </div>
-
+        
+        {/* Card Body with details */}
+        <div className='space-y-2 text-sm text-gray-500'>
+          <div className='flex items-center gap-2'>
+            <Clock className='h-4 w-4' />
+            <span>Years of Experience: {interview?.jobExperience} </span>
+          </div>
+          <div className='flex items-center gap-2'>
+            <Calendar className='h-4 w-4' />
+            <span>Created At: {interview?.createdAt}</span>
+          </div>
+        </div>
+      </div>
+      
+      {/* Card Footer with action buttons */}
+      <div className='flex justify-between items-center mt-4 pt-4 border-t border-gray-100'>
+        <Button 
+          size='sm' 
+          variant='outline' 
+          className='text-orange-600 border-orange-300 hover:bg-orange-50 hover:text-orange-700 flex items-center gap-2'
+          onClick={onFeedbackPress}
+        >
+          <FileText className='h-4 w-4' />
+          Feedback
+        </Button>
+        <Button 
+          size='sm' 
+          className='bg-green-500 hover:bg-green-600 text-white flex items-center gap-2'
+          onClick={onStart}
+        >
+          <Play className='h-4 w-4' />
+          Start
+        </Button>
+      </div>
     </div>
   )
 }

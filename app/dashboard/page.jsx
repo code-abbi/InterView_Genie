@@ -1,14 +1,14 @@
 "use client"
 import { useUser } from '@clerk/nextjs';
 import React, { useEffect, useState } from 'react';
-// Removed InterviewList import as we are mapping directly
 import AddNewInterview from './_components/AddNewInterview';
 import { Button } from '@/components/ui/button';
 import { Briefcase, Clock, Plus, BarChart } from 'lucide-react';
 import { db } from '@/utils/db';
 import { MockInterview, UserAnswer } from '@/utils/schema';
 import { desc, eq } from 'drizzle-orm';
-import InterviewItemCard from './_components/InterviewItemCard'; // Correctly importing the component
+import InterviewItemCard from './_components/InterviewItemCard';
+import { motion } from 'framer-motion'; // Import framer-motion for animations
 
 const StatsCard = ({ icon: Icon, title, value, note }) => (
   <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
@@ -60,6 +60,29 @@ function Dashboard() {
     };
     fetchUserData();
   }, [user]);
+
+  // Animation variants for the container and list items
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1, // Each child will animate 0.1s after the previous one
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 120,
+      },
+    },
+  };
 
   return (
     <div className='p-4 sm:p-6 md:p-10'>
@@ -124,16 +147,37 @@ function Dashboard() {
             Add New Interview
           </Button>
           </div>        
-        {/* We map directly here to use the state we already fetched */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-5 my-3'>
-          {interviewList.length > 0 ? interviewList.map((interview,index)=>(
-              <InterviewItemCard 
-              interview={interview}
-              key={index}/>
-          )) : !loading && (
-            <p className="text-gray-500 col-span-full">You have no past interviews. Create one to get started!</p>
+        
+        {/* Animated Interview List */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-3'
+        >
+          {interviewList.length > 0 ? (
+            interviewList.map((interview, index) => (
+              <motion.div
+                key={interview.mockId || index}
+                variants={itemVariants}
+                whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.2 } }}
+              >
+                <InterviewItemCard interview={interview} />
+              </motion.div>
+            ))
+          ) : (
+            !loading && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-gray-500 col-span-full text-center py-16 bg-gray-50 rounded-lg"
+              >
+                <h3 className="text-xl font-semibold">No interviews yet!</h3>
+                <p>Click 'Add New Interview' to create your first mock interview.</p>
+              </motion.div>
+            )
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   )
