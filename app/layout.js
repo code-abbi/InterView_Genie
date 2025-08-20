@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "genie",
-  description: "Mock Interview ",
+  title: "InterView_Genie",
+  description: "AI-powered Mock Interview platform",
 };
 
 export default function RootLayout({ children }) {
