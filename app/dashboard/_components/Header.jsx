@@ -1,9 +1,10 @@
-"use client"
+"use client";
 import React from 'react';
 import Image from 'next/image';
 import { UserButton } from '@clerk/nextjs';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+
 // --- Icon Components ---
 const HomeIcon = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -45,7 +46,7 @@ function Header() {
    ];
 
    return (
-     <header className='sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-md border-b border-gray-200 dark:border-slate-800'> 
+     <header className='sticky top-0 z-50 bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg border-b border-white/20 dark:border-white/10'> 
        <div className="container mx-auto flex items-center justify-between p-4 h-16">
          {/* Logo and Branding */}
          <Link href="/" className='flex items-center gap-2'>

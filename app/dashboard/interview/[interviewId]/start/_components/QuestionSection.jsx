@@ -29,31 +29,31 @@ function QuestionSection({ mockInterviewQuestion, activeQuestionIndex }) {
     };
   }, [activeQuestionIndex]);
   
-  // Loading Skeleton UI with headings
+  // Loading Skeleton UI with glass effect
   if (!mockInterviewQuestion || mockInterviewQuestion.length === 0) {
     return (
-      <div className='p-5 border rounded-lg my-10 animate-pulse'>
-        <div className='h-8 w-1/2 bg-gray-200 rounded-lg mb-6'></div>
+      <div className='glass-effect p-5 rounded-2xl my-10 animate-pulse'>
+        <div className='h-8 w-1/2 bg-slate-300/50 rounded-lg mb-6'></div>
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
           {[1, 2, 3, 4, 5].map((item) => (
-            <div key={item} className='h-8 w-full bg-gray-200 rounded-full'></div>
+            <div key={item} className='h-8 w-full bg-slate-300/50 rounded-full'></div>
           ))}
         </div>
         <div className='mt-8'>
-            <div className='h-4 w-1/4 bg-gray-200 rounded-lg mb-4'></div>
-            <div className='h-5 w-full bg-gray-200 rounded-lg'></div>
-            <div className='h-5 w-3/4 bg-gray-200 rounded-lg mt-3'></div>
+            <div className='h-4 w-1/4 bg-slate-300/50 rounded-lg mb-4'></div>
+            <div className='h-5 w-full bg-slate-300/50 rounded-lg'></div>
+            <div className='h-5 w-3/4 bg-slate-300/50 rounded-lg mt-3'></div>
         </div>
-        <div className='mt-12 p-5 border rounded-lg bg-gray-100'>
-            <div className='h-5 w-1/4 bg-gray-200 rounded-lg'></div>
-            <div className='h-4 w-full bg-gray-200 rounded-lg mt-4'></div>
+        <div className='mt-12 p-5 border border-slate-300/20 rounded-lg bg-slate-300/10'>
+            <div className='h-5 w-1/4 bg-slate-300/50 rounded-lg'></div>
+            <div className='h-4 w-full bg-slate-300/50 rounded-lg mt-4'></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className='p-5 border rounded-lg my-10'>
+    <div className='glass-effect p-5 rounded-2xl my-10'>
       <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
         {mockInterviewQuestion.map((question, index) => (
           <h2
@@ -61,7 +61,7 @@ function QuestionSection({ mockInterviewQuestion, activeQuestionIndex }) {
             className={`p-2 rounded-full text-xs md:text-sm text-center font-semibold transition-all duration-300 ease-in-out ${
               activeQuestionIndex === index
                 ? 'bg-orange-500 text-white shadow-lg'
-                : 'bg-orange-50 text-orange-400'
+                : 'bg-orange-500/10 text-orange-500 dark:bg-orange-500/20 dark:text-orange-400'
             }`}
           >
             Question #{index + 1}
@@ -70,10 +70,10 @@ function QuestionSection({ mockInterviewQuestion, activeQuestionIndex }) {
       </div>
 
       <div key={activeQuestionIndex} className='my-8 animate-fadeIn'>
-        <h3 className='text-sm font-semibold text-orange-600 mb-2'>
+        <h3 className='text-sm font-semibold text-orange-600 dark:text-orange-400 mb-2'>
             {`Question ${activeQuestionIndex + 1} of ${mockInterviewQuestion.length}`}
         </h3>
-        <p className='text-lg font-medium text-gray-800'>
+        <p className='text-lg font-medium text-slate-800 dark:text-slate-200'>
           {mockInterviewQuestion[activeQuestionIndex]?.question}
         </p>
       </div>
@@ -89,17 +89,18 @@ function QuestionSection({ mockInterviewQuestion, activeQuestionIndex }) {
         }
       />
 
-      <div className='border rounded-lg p-5 bg-orange-50 mt-12'>
-        <h2 className='flex gap-2 items-center text-orange-600'>
-          <Lightbulb className='text-orange-500' />
+      <div className='border border-orange-500/20 rounded-lg p-5 bg-orange-500/10 mt-12'>
+        <h2 className='flex gap-2 items-center text-orange-600 dark:text-orange-400'>
+          <Lightbulb />
           <strong className='font-semibold'>Note:</strong>
         </h2>
-        <p className='text-sm text-orange-700 my-2'>
+        <p className='text-sm text-orange-700 dark:text-orange-300 my-2'>
             After recording your answer, wait briefly to ensure it saves to the database. Once saved, you'll proceed automatically.
             <br />
             To skip a question, click "Next Question."
             <br />
-            Click "Record Answer" to respond. Inactivity will turn off the camera/microphone after few seconds restart when ready.         </p>
+            Click "Record Answer" to respond. Inactivity will turn off the camera/microphone after few seconds restart when ready.
+        </p>
       </div>
     </div>
   );

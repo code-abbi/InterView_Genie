@@ -8,19 +8,20 @@ import { db } from '@/utils/db';
 import { MockInterview, UserAnswer } from '@/utils/schema';
 import { desc, eq } from 'drizzle-orm';
 import InterviewItemCard from './_components/InterviewItemCard';
-import { motion } from 'framer-motion'; // Import framer-motion for animations
+import { motion } from 'framer-motion';
 
+// CHANGE: Updated StatsCard to use the glass-effect and adjusted colors
 const StatsCard = ({ icon: Icon, title, value, note }) => (
-  <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
+  <div className="glass-effect p-6 rounded-2xl shadow-lg flex flex-col justify-between transition-all duration-300 hover:-translate-y-1">
     <div>
-      <div className="p-3 bg-orange-100 rounded-lg w-fit">
+      <div className="p-3 bg-orange-500/10 dark:bg-orange-500/20 rounded-lg w-fit">
         <Icon className="h-6 w-6 text-orange-500" />
       </div>
     </div>
     <div>
-      <h3 className="text-3xl font-bold text-gray-800 mt-4">{value}</h3>
-      <p className="text-gray-500 text-sm">{title}</p>
-      {note && <p className="text-gray-400 text-xs mt-1">{note}</p>}
+      <h3 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-4">{value}</h3>
+      <p className="text-slate-600 dark:text-slate-400 text-sm">{title}</p>
+      {note && <p className="text-slate-500 dark:text-slate-500 text-xs mt-1">{note}</p>}
     </div>
   </div>
 );
@@ -61,13 +62,12 @@ function Dashboard() {
     fetchUserData();
   }, [user]);
 
-  // Animation variants for the container and list items
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1, // Each child will animate 0.1s after the previous one
+        staggerChildren: 0.1,
       },
     },
   };
@@ -86,21 +86,18 @@ function Dashboard() {
 
   return (
     <div className='p-4 sm:p-6 md:p-10'>
-      <h2 className='font-bold text-3xl md:text-4xl text-gray-800'>
+      <h2 className='font-bold text-3xl md:text-4xl text-slate-800 dark:text-slate-100'>
         Welcome, {user?.firstName}!
       </h2>
-      <p className='text-gray-500'>Here's a summary of your interview preparations.</p>
+      <p className='text-slate-600 dark:text-slate-400'>Here's a summary of your interview preparations.</p>
 
-      {/* Conditional Stats/Welcome Section */}
       {loading ? (
-        // Skeleton Loader while fetching data
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-8'>
-          <div className="bg-gray-200 h-40 rounded-2xl animate-pulse"></div>
-          <div className="bg-gray-200 h-40 rounded-2xl animate-pulse"></div>
-          <div className="bg-gray-200 h-40 rounded-2xl animate-pulse"></div>
+          <div className="bg-slate-300/50 h-40 rounded-2xl animate-pulse"></div>
+          <div className="bg-slate-300/50 h-40 rounded-2xl animate-pulse"></div>
+          <div className="bg-slate-300/50 h-40 rounded-2xl animate-pulse"></div>
         </div>
       ) : interviewList.length > 0 ? (
-        // Display Stats for existing users
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-8'>
           <StatsCard 
             icon={Briefcase} 
@@ -122,23 +119,20 @@ function Dashboard() {
           />
         </div>
       ) : (
-        // Welcome message for new users
-        <div className='bg-white p-8 rounded-2xl shadow-sm border border-gray-100 my-8 text-center'>
-          <h3 className="text-2xl font-bold text-gray-800 mb-2">Start Your Journey</h3>
-          <p className="text-gray-500 max-w-2xl mx-auto mb-6">
+        // CHANGE: Applied glass effect to the welcome message
+        <div className='glass-effect p-8 rounded-2xl shadow-lg my-8 text-center'>
+          <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">Start Your Journey</h3>
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-6">
             Your performance statistics will appear here once you've completed your first mock interview. Create a new session to begin.
           </p>
-          
         </div>
       )}
 
-      {/* Add New Interview Dialog (always available) */}
       <AddNewInterview openDialog={openDialog} setOpenDialog={setOpenDialog} />
       
-      {/* Recent Interviews List */}
       <div className="mt-12">
           <div className="flex justify-between items-center mb-4">
-          <h3 className="text-2xl font-bold text-gray-800">Past Interview</h3>
+          <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-200">Past Interviews</h3>
           <Button
             onClick={() => setOpenDialog(true)}
             className="bg-orange-500 hover:bg-orange-600 text-white shadow-sm hover:shadow-md transition-all rounded-full px-6 py-2 text-base flex items-center gap-2"
@@ -148,7 +142,6 @@ function Dashboard() {
           </Button>
           </div>        
         
-        {/* Animated Interview List */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -170,7 +163,8 @@ function Dashboard() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-gray-500 col-span-full text-center py-16 bg-gray-50 rounded-lg"
+                // CHANGE: Applied a subtle background to this message
+                className="text-slate-500 dark:text-slate-400 col-span-full text-center py-16 bg-slate-500/10 rounded-lg"
               >
                 <h3 className="text-xl font-semibold">No interviews yet!</h3>
                 <p>Click 'Add New Interview' to create your first mock interview.</p>
@@ -184,3 +178,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+

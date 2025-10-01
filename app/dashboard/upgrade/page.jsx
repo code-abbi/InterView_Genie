@@ -52,7 +52,7 @@ function Upgrade() {
             <div
               key={plan.name}
               className={`
-                relative flex flex-col p-8 rounded-2xl border bg-white dark:bg-gray-800 dark:border-gray-700 shadow-sm 
+                relative flex flex-col p-8 rounded-2xl border  dark:bg-gray-800 dark:border-gray-700 shadow-sm 
                 transition-all duration-300 hover:shadow-xl hover:-translate-y-1
                 ${plan.isPopular ? 'border-2 border-orange-500 shadow-lg' : 'border-gray-200'}
               `}
@@ -104,7 +104,7 @@ function Upgrade() {
                       ${plan.isPopular ? 'bg-orange-600 hover:bg-orange-700 text-white' : 'bg-gray-800 hover:bg-gray-900 text-white'}
                     `}
                   >
-                    Get Started
+                    Buy Plan
                   </Button>
                 )}
               </div>

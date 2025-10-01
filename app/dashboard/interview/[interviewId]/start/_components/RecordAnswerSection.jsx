@@ -1,7 +1,7 @@
 "use client";
-import Webcam from 'react-webcam'; // Correct import for Webcam component
+import Webcam from 'react-webcam';
 import React, { useEffect, useState } from 'react';
-import { WebcamIcon, Mic, User } from 'lucide-react';
+import { WebcamIcon, Mic, Square } from 'lucide-react'; // Import Square for the stop button
 import useSpeechToText from 'react-hook-speech-to-text';
 import { toast } from 'sonner';
 import { chatSession } from '@/utils/GeminiAIModal';
@@ -103,44 +103,48 @@ function RecordAnswerSection({ webcamEnabled, setWebcamEnabled, mockInterviewQue
     setLoading(false);
    }
    return (
-    <div className='flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-md border border-gray-200'>
-      {webcamEnabled ? ( // Display webcam if enabled
-        <div className='w-full rounded-lg overflow-hidden border-2 border-indigo-400'>
+    // CHANGE: Applied glass effect to the main container
+    <div className='glass-effect flex flex-col items-center justify-center p-6 rounded-2xl shadow-lg'>
+      {/* CHANGE: Removed the border and let the glass effect handle the container */}
+      <div className='w-full rounded-lg overflow-hidden'>
+        {webcamEnabled ? ( 
           <Webcam
             onUserMedia={() => setWebcamEnabled(true)}
             onUserMediaError={() => setWebcamEnabled(false)}
             mirrored={true}
-            style={{
-              width: '100%',
-              height: 'auto',
-              aspectRatio: '4/3',
-            }}
+            className='w-full h-auto aspect-video'
           />
-        </div>
-      ) : ( // Otherwise, display the placeholder icon
-        <div className='w-full aspect-video bg-gray-900 rounded-lg border-2 border-dashed flex items-center justify-center'>
-          <WebcamIcon className='h-48 w-48 text-orange-600' />
-        </div>
-      )}
-      <button disabled={loading}
-        variant="outline"
-        className='w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 mt-4'
+        ) : ( 
+          // CHANGE: Updated placeholder to have a semi-transparent background
+          <div className='w-full aspect-video bg-slate-900/50 rounded-lg flex items-center justify-center'>
+            <WebcamIcon className='h-48 w-48 text-orange-500/50' />
+          </div>
+        )}
+      </div>
+      
+      {/* CHANGE: Updated button styles for recording and stopping states */}
+      <button 
+        disabled={loading}
+        className={`w-full font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 mt-4 text-white
+          ${isRecording ? 'bg-red-600 hover:bg-red-700' : 'bg-orange-600 hover:bg-orange-700'}`}
         onClick={StartStopRecording} 
       >
         {isRecording ? (
           <> 
-            <Mic className='h-5 w-5' />
-            Recording...
+            <Square className='h-5 w-5 animate-pulse' />
+            Stop Recording...
           </>
         ) : (
-          'Record Answer'
+          <>
+            <Mic className='h-5 w-5' />
+            Record Answer
+          </>
         )}
       </button>
-      {error && <p className='text-red-600 text-sm mt-2'>error : 
-        Speech recongination api is not available in your current browser. For the best experience, please use the latest version of Google Chrome.
-       </p>}
-      
 
+      {error && <p className='text-red-500 text-sm mt-2'>Error: 
+        Speech recognition is not available in your browser. For the best experience, please use Google Chrome.
+       </p>}
     </div>
    )
   }

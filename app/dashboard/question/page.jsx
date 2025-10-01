@@ -63,7 +63,7 @@ function QuestionGuide() {
               {questionTypes.map((q, index) => {
                 const Icon = q.icon;
                 return (
-                  <Collapsible key={index} className="bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl shadow-sm transition-colors duration-300 hover:border-primary hover:shadow-lg">
+                  <Collapsible key={index} className="bg-gray-100 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl shadow-sm transition-colors duration-300 hover:border-primary hover:shadow-lg">
                     <CollapsibleTrigger className='p-4 flex justify-between items-center gap-4 w-full text-left font-semibold text-lg text-gray-800 dark:text-gray-100'>
                       <div className="flex items-center gap-4">
                         <Icon className="h-6 w-6 text-primary" />
@@ -73,7 +73,7 @@ function QuestionGuide() {
                     </CollapsibleTrigger>
                     <CollapsibleContent className='px-6 pb-6 space-y-4 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95'>
                       <p className='text-gray-600 dark:text-gray-300'>{q.description}</p>
-                      <p className='p-3 bg-gray-100 dark:bg-gray-700/50 rounded-md text-gray-700 dark:text-gray-200 text-sm italic'>
+                      <p className='p-3 bg-gray-300 dark:bg-gray-700/50 rounded-md text-gray-700 dark:text-gray-200 text-sm italic'>
                         {q.example}
                       </p>
                       <div className="flex items-start gap-3 pt-2">
@@ -91,7 +91,7 @@ function QuestionGuide() {
 
           {/* Tips for Success Section */}
           <section>
-             <div className='p-6 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl shadow-sm transition-colors duration-300 hover:border-primary hover:shadow-lg'>
+             <div className='p-6 bg-gray-100 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl shadow-sm transition-colors duration-300 hover:border-primary hover:shadow-lg'>
               <h3 className='text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center sm:text-left'>Tips for Success</h3>
               <ul className='space-y-4'>
                 <li className='flex items-start gap-3'>

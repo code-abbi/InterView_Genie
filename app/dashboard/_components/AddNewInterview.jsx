@@ -64,10 +64,12 @@ function AddNewInterview({ openDialog, setOpenDialog }) {
     
     return (
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-            <DialogContent className={'max-w-2xl'}>
+            <DialogContent className={'max-w-2xl glass-effect'}>
                 <DialogHeader>
-                    <DialogTitle className={'text-2xl text-orange-500'}>Tell us more about your job</DialogTitle>
-                    <DialogDescription>
+                    {/* CHANGE: Made title text high-contrast */}
+                    <DialogTitle className={'text-2xl font-bold text-slate-900 dark:text-slate-100'}>Tell us more about your job</DialogTitle>
+                    {/* CHANGE: Made description text high-contrast */}
+                    <DialogDescription className="text-slate-600 dark:text-slate-400">
                         Add details about your job position, description, and years of experience to get started.
                     </DialogDescription>
                 </DialogHeader>
@@ -75,16 +77,18 @@ function AddNewInterview({ openDialog, setOpenDialog }) {
                 <form onSubmit={onSubmit}>
                     <div className="space-y-4 py-4">
                         <div className="grid gap-2">
-                            <Label className='text-orange-600' htmlFor="job-role">Job Position / Role</Label>
-                            <Input id="job-role" placeholder="e.g. Full Stack Developer" required onChange={(e) => setJobRole(e.target.value)} />
+                             {/* CHANGE: Made label text high-contrast */}
+                            <Label className='font-semibold text-slate-800 dark:text-slate-200' htmlFor="job-role">Job Position / Role</Label>
+                             {/* CHANGE: Added background to input for readability */}
+                            <Input id="job-role" placeholder="e.g. Full Stack Developer" required onChange={(e) => setJobRole(e.target.value)} className="bg-white/50 dark:bg-slate-800/50" />
                         </div>
                         <div className="grid gap-2">
-                            <Label className='text-orange-600' htmlFor="job-desc">Job Description / Skills</Label>
-                            <Textarea id="job-desc" placeholder="e.g. React, Next.js, Node.js, SQL" required onChange={(e) => setJobDesc(e.target.value)} />
+                            <Label className='font-semibold text-slate-800 dark:text-slate-200' htmlFor="job-desc">Job Description / Skills</Label>
+                            <Textarea id="job-desc" placeholder="e.g. React, Next.js, Node.js, SQL" required onChange={(e) => setJobDesc(e.target.value)} className="bg-white/50 dark:bg-slate-800/50" />
                         </div>
                         <div className="grid gap-2">
-                            <Label className='text-orange-600' htmlFor="job-exp">Years of Experience</Label>
-                            <Input id="job-exp" type="number" placeholder="e.g. 5" max="40" min="0" required onChange={(e) => setJobExp(e.target.value)} />
+                            <Label className='font-semibold text-slate-800 dark:text-slate-200' htmlFor="job-exp">Years of Experience</Label>
+                            <Input id="job-exp" type="number" placeholder="e.g. 5" max="40" min="0" required onChange={(e) => setJobExp(e.target.value)} className="bg-white/50 dark:bg-slate-800/50" />
                         </div>
                     </div>
                 
