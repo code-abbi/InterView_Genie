@@ -7,10 +7,7 @@ InterViewGenie is a full-stack web application designed to help users prepare fo
 You can try out the live application here: **[InterViewGenie Live](https://interview-genieai.vercel.app/)**
 
 ### Landing Page
-![Landing Page](https://raw.githubusercontent.com/code-abbi/InterView_Genie/main/public/demo%20img/landing.png)
-
-### Dashboard
-![Dashboard](https://raw.githubusercontent.com/code-abbi/InterView_Genie/main/public/demo%20img/dashboard.png)
+![Landing Page](https://github.com/code-abbi/InterView_Genie/blob/main/public/landing.png)
 
 ---
 
