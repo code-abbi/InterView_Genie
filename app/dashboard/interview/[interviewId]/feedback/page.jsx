@@ -23,8 +23,8 @@ const RatingCircle = ({ rating }) => {
   if (rating < 4) circleColor = 'stroke-red-500';
 
   return (
-    <div className="relative flex items-center justify-center w-40 h-40">
-      <svg className="transform -rotate-90 w-full h-full">
+   <div className="relative flex items-center justify-center w-40 h-40 mx-auto">
+      <svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMid meet" className="transform -rotate-90 w-full h-full block">
         <circle
           // CHANGE: Made track more transparent
           className="text-slate-300/50 dark:text-slate-700/50"
